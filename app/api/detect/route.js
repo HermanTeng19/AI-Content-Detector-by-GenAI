@@ -38,18 +38,28 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
 
+    // Use environment variables for API credentials
+    const apiKey = process.env.RAPIDAPI_KEY;
+    const apiHost = process.env.RAPIDAPI_HOST || 'ai-content-detector-ai-gpt.p.rapidapi.com';
+
+    // If no API key is provided, use mock data
+    if (!apiKey) {
+      console.log('No RapidAPI key found in environment variables. Using mock data.');
+      return NextResponse.json(getMockDetectionResults(text));
+    }
+
     const options = {
       method: 'POST',
       headers: {
-        'x-rapidapi-key': 'de1b7e8918mshc4b8a6730603a95p157faejsn2d79347e1438',
-        'x-rapidapi-host': 'ai-content-detector-ai-gpt.p.rapidapi.com',
+        'x-rapidapi-key': apiKey,
+        'x-rapidapi-host': apiHost,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ text })
     };
 
     try {
-      const response = await fetch('https://ai-content-detector-ai-gpt.p.rapidapi.com/api/detectText/', options);
+      const response = await fetch(`https://${apiHost}/api/detectText/`, options);
       
       if (!response.ok) {
         console.warn(`API error: ${response.status}. Using mock data instead.`);

@@ -26,6 +26,7 @@ A sophisticated Next.js application that detects AI-generated content with high 
 ### Prerequisites
 
 - Node.js 18+ and npm
+- RapidAPI subscription to the [AI Content Detector API](https://rapidapi.com/ai-content-detector-ai-content-detector-default/api/ai-content-detector-ai-gpt) (optional)
 
 ### Installation
 
@@ -40,11 +41,13 @@ A sophisticated Next.js application that detects AI-generated content with high 
    npm install
    ```
 
-3. Create a `.env.local` file in the root directory with your RapidAPI key (optional):
+3. Create a `.env.local` file in the root directory with your RapidAPI key:
    ```
    RAPIDAPI_KEY=your_api_key_here
    RAPIDAPI_HOST=ai-content-detector-ai-gpt.p.rapidapi.com
    ```
+
+   > Note: If you don't provide an API key, the application will use mock data for demonstration purposes.
 
 4. Start the development server:
    ```bash
@@ -52,6 +55,30 @@ A sophisticated Next.js application that detects AI-generated content with high 
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+## Deployment
+
+### Deploying to Vercel
+
+1. Push your code to GitHub (make sure you don't commit your `.env.local` file)
+
+2. Visit [Vercel](https://vercel.com) and sign up/log in with your GitHub account
+
+3. Click "New Project" and import your repository
+
+4. Configure the project:
+   - Framework Preset: Next.js
+   - Root Directory: ./
+   - Build Command: (leave as default)
+   - Output Directory: (leave as default)
+
+5. Add Environment Variables:
+   - RAPIDAPI_KEY: your_api_key_here
+   - RAPIDAPI_HOST: ai-content-detector-ai-gpt.p.rapidapi.com
+
+6. Click "Deploy" and wait for the build to complete
+
+7. Your app will be available at a Vercel-generated URL (you can customize this in project settings)
 
 ## Usage
 
