@@ -62,6 +62,13 @@ export default function ContentDetector() {
     }
   };
 
+  const handleClear = () => {
+    setText('');
+    setResult(null);
+    setError('');
+    setAnimatedPercent(0);
+  };
+
   const getResultColor = (aiProb) => {
     if (aiProb > 0.7) {
       return {
@@ -122,20 +129,36 @@ export default function ContentDetector() {
             </div>
           </div>
         </div>
-        <button
-          type="submit"
-          disabled={loading || !text.trim()}
-          className="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-md transition-all duration-200 ease-in-out transform hover:translate-y-[-2px]"
-        >
-          {loading ? (
+        <div className="flex gap-4">
+          <button
+            type="submit"
+            disabled={loading || !text.trim()}
+            className="flex-1 py-3 px-4 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-md transition-all duration-200 ease-in-out transform hover:translate-y-[-2px]"
+          >
+            {loading ? (
+              <span className="flex items-center justify-center">
+                <LoadingSpinner size="small" />
+                <span className="ml-2">Analyzing...</span>
+              </span>
+            ) : (
+              'Detect AI Content'
+            )}
+          </button>
+          
+          <button
+            type="button"
+            onClick={handleClear}
+            disabled={loading || !text.trim()}
+            className="py-3 px-4 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-md transition-all duration-200 ease-in-out transform hover:translate-y-[-2px]"
+          >
             <span className="flex items-center justify-center">
-              <LoadingSpinner size="small" />
-              <span className="ml-2">Analyzing...</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+              <span className="ml-1">Clear</span>
             </span>
-          ) : (
-            'Detect AI Content'
-          )}
-        </button>
+          </button>
+        </div>
       </form>
 
       {loading && (
@@ -309,4 +332,4 @@ export default function ContentDetector() {
       )}
     </div>
   );
-} 
+}
